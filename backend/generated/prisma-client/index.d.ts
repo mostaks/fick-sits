@@ -18,6 +18,8 @@ export type Maybe<T> = T | undefined | null;
 export interface Exists {
   cartItem: (where?: CartItemWhereInput) => Promise<boolean>;
   item: (where?: ItemWhereInput) => Promise<boolean>;
+  order: (where?: OrderWhereInput) => Promise<boolean>;
+  orderItem: (where?: OrderItemWhereInput) => Promise<boolean>;
   user: (where?: UserWhereInput) => Promise<boolean>;
 }
 
@@ -78,6 +80,44 @@ export interface Prisma {
     first?: Int;
     last?: Int;
   }) => ItemConnectionPromise;
+  order: (where: OrderWhereUniqueInput) => OrderNullablePromise;
+  orders: (args?: {
+    where?: OrderWhereInput;
+    orderBy?: OrderOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<Order>;
+  ordersConnection: (args?: {
+    where?: OrderWhereInput;
+    orderBy?: OrderOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => OrderConnectionPromise;
+  orderItem: (where: OrderItemWhereUniqueInput) => OrderItemNullablePromise;
+  orderItems: (args?: {
+    where?: OrderItemWhereInput;
+    orderBy?: OrderItemOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => FragmentableArray<OrderItem>;
+  orderItemsConnection: (args?: {
+    where?: OrderItemWhereInput;
+    orderBy?: OrderItemOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => OrderItemConnectionPromise;
   user: (where: UserWhereUniqueInput) => UserNullablePromise;
   users: (args?: {
     where?: UserWhereInput;
@@ -135,6 +175,38 @@ export interface Prisma {
   }) => ItemPromise;
   deleteItem: (where: ItemWhereUniqueInput) => ItemPromise;
   deleteManyItems: (where?: ItemWhereInput) => BatchPayloadPromise;
+  createOrder: (data: OrderCreateInput) => OrderPromise;
+  updateOrder: (args: {
+    data: OrderUpdateInput;
+    where: OrderWhereUniqueInput;
+  }) => OrderPromise;
+  updateManyOrders: (args: {
+    data: OrderUpdateManyMutationInput;
+    where?: OrderWhereInput;
+  }) => BatchPayloadPromise;
+  upsertOrder: (args: {
+    where: OrderWhereUniqueInput;
+    create: OrderCreateInput;
+    update: OrderUpdateInput;
+  }) => OrderPromise;
+  deleteOrder: (where: OrderWhereUniqueInput) => OrderPromise;
+  deleteManyOrders: (where?: OrderWhereInput) => BatchPayloadPromise;
+  createOrderItem: (data: OrderItemCreateInput) => OrderItemPromise;
+  updateOrderItem: (args: {
+    data: OrderItemUpdateInput;
+    where: OrderItemWhereUniqueInput;
+  }) => OrderItemPromise;
+  updateManyOrderItems: (args: {
+    data: OrderItemUpdateManyMutationInput;
+    where?: OrderItemWhereInput;
+  }) => BatchPayloadPromise;
+  upsertOrderItem: (args: {
+    where: OrderItemWhereUniqueInput;
+    create: OrderItemCreateInput;
+    update: OrderItemUpdateInput;
+  }) => OrderItemPromise;
+  deleteOrderItem: (where: OrderItemWhereUniqueInput) => OrderItemPromise;
+  deleteManyOrderItems: (where?: OrderItemWhereInput) => BatchPayloadPromise;
   createUser: (data: UserCreateInput) => UserPromise;
   updateUser: (args: {
     data: UserUpdateInput;
@@ -166,6 +238,12 @@ export interface Subscription {
   item: (
     where?: ItemSubscriptionWhereInput
   ) => ItemSubscriptionPayloadSubscription;
+  order: (
+    where?: OrderSubscriptionWhereInput
+  ) => OrderSubscriptionPayloadSubscription;
+  orderItem: (
+    where?: OrderItemSubscriptionWhereInput
+  ) => OrderItemSubscriptionPayloadSubscription;
   user: (
     where?: UserSubscriptionWhereInput
   ) => UserSubscriptionPayloadSubscription;
@@ -210,6 +288,30 @@ export type ItemOrderByInput =
   | "createdAt_DESC"
   | "updatedAt_ASC"
   | "updatedAt_DESC";
+
+export type OrderItemOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "title_ASC"
+  | "title_DESC"
+  | "description_ASC"
+  | "description_DESC"
+  | "image_ASC"
+  | "image_DESC"
+  | "largeImage_ASC"
+  | "largeImage_DESC"
+  | "price_ASC"
+  | "price_DESC"
+  | "quantity_ASC"
+  | "quantity_DESC";
+
+export type OrderOrderByInput =
+  | "id_ASC"
+  | "id_DESC"
+  | "total_ASC"
+  | "total_DESC"
+  | "charge_ASC"
+  | "charge_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -450,6 +552,153 @@ export interface UserWhereInput {
 }
 
 export type ItemWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export type OrderWhereUniqueInput = AtLeastOne<{
+  id: Maybe<ID_Input>;
+}>;
+
+export interface OrderItemWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  image?: Maybe<String>;
+  image_not?: Maybe<String>;
+  image_in?: Maybe<String[] | String>;
+  image_not_in?: Maybe<String[] | String>;
+  image_lt?: Maybe<String>;
+  image_lte?: Maybe<String>;
+  image_gt?: Maybe<String>;
+  image_gte?: Maybe<String>;
+  image_contains?: Maybe<String>;
+  image_not_contains?: Maybe<String>;
+  image_starts_with?: Maybe<String>;
+  image_not_starts_with?: Maybe<String>;
+  image_ends_with?: Maybe<String>;
+  image_not_ends_with?: Maybe<String>;
+  largeImage?: Maybe<String>;
+  largeImage_not?: Maybe<String>;
+  largeImage_in?: Maybe<String[] | String>;
+  largeImage_not_in?: Maybe<String[] | String>;
+  largeImage_lt?: Maybe<String>;
+  largeImage_lte?: Maybe<String>;
+  largeImage_gt?: Maybe<String>;
+  largeImage_gte?: Maybe<String>;
+  largeImage_contains?: Maybe<String>;
+  largeImage_not_contains?: Maybe<String>;
+  largeImage_starts_with?: Maybe<String>;
+  largeImage_not_starts_with?: Maybe<String>;
+  largeImage_ends_with?: Maybe<String>;
+  largeImage_not_ends_with?: Maybe<String>;
+  price?: Maybe<Int>;
+  price_not?: Maybe<Int>;
+  price_in?: Maybe<Int[] | Int>;
+  price_not_in?: Maybe<Int[] | Int>;
+  price_lt?: Maybe<Int>;
+  price_lte?: Maybe<Int>;
+  price_gt?: Maybe<Int>;
+  price_gte?: Maybe<Int>;
+  quantity?: Maybe<Int>;
+  quantity_not?: Maybe<Int>;
+  quantity_in?: Maybe<Int[] | Int>;
+  quantity_not_in?: Maybe<Int[] | Int>;
+  quantity_lt?: Maybe<Int>;
+  quantity_lte?: Maybe<Int>;
+  quantity_gt?: Maybe<Int>;
+  quantity_gte?: Maybe<Int>;
+  user?: Maybe<UserWhereInput>;
+  AND?: Maybe<OrderItemWhereInput[] | OrderItemWhereInput>;
+  OR?: Maybe<OrderItemWhereInput[] | OrderItemWhereInput>;
+  NOT?: Maybe<OrderItemWhereInput[] | OrderItemWhereInput>;
+}
+
+export interface OrderWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  items_every?: Maybe<OrderItemWhereInput>;
+  items_some?: Maybe<OrderItemWhereInput>;
+  items_none?: Maybe<OrderItemWhereInput>;
+  total?: Maybe<Int>;
+  total_not?: Maybe<Int>;
+  total_in?: Maybe<Int[] | Int>;
+  total_not_in?: Maybe<Int[] | Int>;
+  total_lt?: Maybe<Int>;
+  total_lte?: Maybe<Int>;
+  total_gt?: Maybe<Int>;
+  total_gte?: Maybe<Int>;
+  user?: Maybe<UserWhereInput>;
+  charge?: Maybe<String>;
+  charge_not?: Maybe<String>;
+  charge_in?: Maybe<String[] | String>;
+  charge_not_in?: Maybe<String[] | String>;
+  charge_lt?: Maybe<String>;
+  charge_lte?: Maybe<String>;
+  charge_gt?: Maybe<String>;
+  charge_gte?: Maybe<String>;
+  charge_contains?: Maybe<String>;
+  charge_not_contains?: Maybe<String>;
+  charge_starts_with?: Maybe<String>;
+  charge_not_starts_with?: Maybe<String>;
+  charge_ends_with?: Maybe<String>;
+  charge_not_ends_with?: Maybe<String>;
+  AND?: Maybe<OrderWhereInput[] | OrderWhereInput>;
+  OR?: Maybe<OrderWhereInput[] | OrderWhereInput>;
+  NOT?: Maybe<OrderWhereInput[] | OrderWhereInput>;
+}
+
+export type OrderItemWhereUniqueInput = AtLeastOne<{
   id: Maybe<ID_Input>;
 }>;
 
@@ -701,6 +950,218 @@ export interface ItemUpdateManyMutationInput {
   price?: Maybe<Int>;
 }
 
+export interface OrderCreateInput {
+  id?: Maybe<ID_Input>;
+  items?: Maybe<OrderItemCreateManyInput>;
+  total: Int;
+  user: UserCreateOneInput;
+  charge: String;
+}
+
+export interface OrderItemCreateManyInput {
+  create?: Maybe<OrderItemCreateInput[] | OrderItemCreateInput>;
+  connect?: Maybe<OrderItemWhereUniqueInput[] | OrderItemWhereUniqueInput>;
+}
+
+export interface OrderItemCreateInput {
+  id?: Maybe<ID_Input>;
+  title: String;
+  description: String;
+  image: String;
+  largeImage: String;
+  price: Int;
+  quantity?: Maybe<Int>;
+  user?: Maybe<UserCreateOneInput>;
+}
+
+export interface OrderUpdateInput {
+  items?: Maybe<OrderItemUpdateManyInput>;
+  total?: Maybe<Int>;
+  user?: Maybe<UserUpdateOneRequiredInput>;
+  charge?: Maybe<String>;
+}
+
+export interface OrderItemUpdateManyInput {
+  create?: Maybe<OrderItemCreateInput[] | OrderItemCreateInput>;
+  update?: Maybe<
+    | OrderItemUpdateWithWhereUniqueNestedInput[]
+    | OrderItemUpdateWithWhereUniqueNestedInput
+  >;
+  upsert?: Maybe<
+    | OrderItemUpsertWithWhereUniqueNestedInput[]
+    | OrderItemUpsertWithWhereUniqueNestedInput
+  >;
+  delete?: Maybe<OrderItemWhereUniqueInput[] | OrderItemWhereUniqueInput>;
+  connect?: Maybe<OrderItemWhereUniqueInput[] | OrderItemWhereUniqueInput>;
+  set?: Maybe<OrderItemWhereUniqueInput[] | OrderItemWhereUniqueInput>;
+  disconnect?: Maybe<OrderItemWhereUniqueInput[] | OrderItemWhereUniqueInput>;
+  deleteMany?: Maybe<OrderItemScalarWhereInput[] | OrderItemScalarWhereInput>;
+  updateMany?: Maybe<
+    | OrderItemUpdateManyWithWhereNestedInput[]
+    | OrderItemUpdateManyWithWhereNestedInput
+  >;
+}
+
+export interface OrderItemUpdateWithWhereUniqueNestedInput {
+  where: OrderItemWhereUniqueInput;
+  data: OrderItemUpdateDataInput;
+}
+
+export interface OrderItemUpdateDataInput {
+  title?: Maybe<String>;
+  description?: Maybe<String>;
+  image?: Maybe<String>;
+  largeImage?: Maybe<String>;
+  price?: Maybe<Int>;
+  quantity?: Maybe<Int>;
+  user?: Maybe<UserUpdateOneInput>;
+}
+
+export interface UserUpdateOneInput {
+  create?: Maybe<UserCreateInput>;
+  update?: Maybe<UserUpdateDataInput>;
+  upsert?: Maybe<UserUpsertNestedInput>;
+  delete?: Maybe<Boolean>;
+  disconnect?: Maybe<Boolean>;
+  connect?: Maybe<UserWhereUniqueInput>;
+}
+
+export interface OrderItemUpsertWithWhereUniqueNestedInput {
+  where: OrderItemWhereUniqueInput;
+  update: OrderItemUpdateDataInput;
+  create: OrderItemCreateInput;
+}
+
+export interface OrderItemScalarWhereInput {
+  id?: Maybe<ID_Input>;
+  id_not?: Maybe<ID_Input>;
+  id_in?: Maybe<ID_Input[] | ID_Input>;
+  id_not_in?: Maybe<ID_Input[] | ID_Input>;
+  id_lt?: Maybe<ID_Input>;
+  id_lte?: Maybe<ID_Input>;
+  id_gt?: Maybe<ID_Input>;
+  id_gte?: Maybe<ID_Input>;
+  id_contains?: Maybe<ID_Input>;
+  id_not_contains?: Maybe<ID_Input>;
+  id_starts_with?: Maybe<ID_Input>;
+  id_not_starts_with?: Maybe<ID_Input>;
+  id_ends_with?: Maybe<ID_Input>;
+  id_not_ends_with?: Maybe<ID_Input>;
+  title?: Maybe<String>;
+  title_not?: Maybe<String>;
+  title_in?: Maybe<String[] | String>;
+  title_not_in?: Maybe<String[] | String>;
+  title_lt?: Maybe<String>;
+  title_lte?: Maybe<String>;
+  title_gt?: Maybe<String>;
+  title_gte?: Maybe<String>;
+  title_contains?: Maybe<String>;
+  title_not_contains?: Maybe<String>;
+  title_starts_with?: Maybe<String>;
+  title_not_starts_with?: Maybe<String>;
+  title_ends_with?: Maybe<String>;
+  title_not_ends_with?: Maybe<String>;
+  description?: Maybe<String>;
+  description_not?: Maybe<String>;
+  description_in?: Maybe<String[] | String>;
+  description_not_in?: Maybe<String[] | String>;
+  description_lt?: Maybe<String>;
+  description_lte?: Maybe<String>;
+  description_gt?: Maybe<String>;
+  description_gte?: Maybe<String>;
+  description_contains?: Maybe<String>;
+  description_not_contains?: Maybe<String>;
+  description_starts_with?: Maybe<String>;
+  description_not_starts_with?: Maybe<String>;
+  description_ends_with?: Maybe<String>;
+  description_not_ends_with?: Maybe<String>;
+  image?: Maybe<String>;
+  image_not?: Maybe<String>;
+  image_in?: Maybe<String[] | String>;
+  image_not_in?: Maybe<String[] | String>;
+  image_lt?: Maybe<String>;
+  image_lte?: Maybe<String>;
+  image_gt?: Maybe<String>;
+  image_gte?: Maybe<String>;
+  image_contains?: Maybe<String>;
+  image_not_contains?: Maybe<String>;
+  image_starts_with?: Maybe<String>;
+  image_not_starts_with?: Maybe<String>;
+  image_ends_with?: Maybe<String>;
+  image_not_ends_with?: Maybe<String>;
+  largeImage?: Maybe<String>;
+  largeImage_not?: Maybe<String>;
+  largeImage_in?: Maybe<String[] | String>;
+  largeImage_not_in?: Maybe<String[] | String>;
+  largeImage_lt?: Maybe<String>;
+  largeImage_lte?: Maybe<String>;
+  largeImage_gt?: Maybe<String>;
+  largeImage_gte?: Maybe<String>;
+  largeImage_contains?: Maybe<String>;
+  largeImage_not_contains?: Maybe<String>;
+  largeImage_starts_with?: Maybe<String>;
+  largeImage_not_starts_with?: Maybe<String>;
+  largeImage_ends_with?: Maybe<String>;
+  largeImage_not_ends_with?: Maybe<String>;
+  price?: Maybe<Int>;
+  price_not?: Maybe<Int>;
+  price_in?: Maybe<Int[] | Int>;
+  price_not_in?: Maybe<Int[] | Int>;
+  price_lt?: Maybe<Int>;
+  price_lte?: Maybe<Int>;
+  price_gt?: Maybe<Int>;
+  price_gte?: Maybe<Int>;
+  quantity?: Maybe<Int>;
+  quantity_not?: Maybe<Int>;
+  quantity_in?: Maybe<Int[] | Int>;
+  quantity_not_in?: Maybe<Int[] | Int>;
+  quantity_lt?: Maybe<Int>;
+  quantity_lte?: Maybe<Int>;
+  quantity_gt?: Maybe<Int>;
+  quantity_gte?: Maybe<Int>;
+  AND?: Maybe<OrderItemScalarWhereInput[] | OrderItemScalarWhereInput>;
+  OR?: Maybe<OrderItemScalarWhereInput[] | OrderItemScalarWhereInput>;
+  NOT?: Maybe<OrderItemScalarWhereInput[] | OrderItemScalarWhereInput>;
+}
+
+export interface OrderItemUpdateManyWithWhereNestedInput {
+  where: OrderItemScalarWhereInput;
+  data: OrderItemUpdateManyDataInput;
+}
+
+export interface OrderItemUpdateManyDataInput {
+  title?: Maybe<String>;
+  description?: Maybe<String>;
+  image?: Maybe<String>;
+  largeImage?: Maybe<String>;
+  price?: Maybe<Int>;
+  quantity?: Maybe<Int>;
+}
+
+export interface OrderUpdateManyMutationInput {
+  total?: Maybe<Int>;
+  charge?: Maybe<String>;
+}
+
+export interface OrderItemUpdateInput {
+  title?: Maybe<String>;
+  description?: Maybe<String>;
+  image?: Maybe<String>;
+  largeImage?: Maybe<String>;
+  price?: Maybe<Int>;
+  quantity?: Maybe<Int>;
+  user?: Maybe<UserUpdateOneInput>;
+}
+
+export interface OrderItemUpdateManyMutationInput {
+  title?: Maybe<String>;
+  description?: Maybe<String>;
+  image?: Maybe<String>;
+  largeImage?: Maybe<String>;
+  price?: Maybe<Int>;
+  quantity?: Maybe<Int>;
+}
+
 export interface UserUpdateInput {
   name?: Maybe<String>;
   email?: Maybe<String>;
@@ -744,6 +1205,34 @@ export interface ItemSubscriptionWhereInput {
   AND?: Maybe<ItemSubscriptionWhereInput[] | ItemSubscriptionWhereInput>;
   OR?: Maybe<ItemSubscriptionWhereInput[] | ItemSubscriptionWhereInput>;
   NOT?: Maybe<ItemSubscriptionWhereInput[] | ItemSubscriptionWhereInput>;
+}
+
+export interface OrderSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<OrderWhereInput>;
+  AND?: Maybe<OrderSubscriptionWhereInput[] | OrderSubscriptionWhereInput>;
+  OR?: Maybe<OrderSubscriptionWhereInput[] | OrderSubscriptionWhereInput>;
+  NOT?: Maybe<OrderSubscriptionWhereInput[] | OrderSubscriptionWhereInput>;
+}
+
+export interface OrderItemSubscriptionWhereInput {
+  mutation_in?: Maybe<MutationType[] | MutationType>;
+  updatedFields_contains?: Maybe<String>;
+  updatedFields_contains_every?: Maybe<String[] | String>;
+  updatedFields_contains_some?: Maybe<String[] | String>;
+  node?: Maybe<OrderItemWhereInput>;
+  AND?: Maybe<
+    OrderItemSubscriptionWhereInput[] | OrderItemSubscriptionWhereInput
+  >;
+  OR?: Maybe<
+    OrderItemSubscriptionWhereInput[] | OrderItemSubscriptionWhereInput
+  >;
+  NOT?: Maybe<
+    OrderItemSubscriptionWhereInput[] | OrderItemSubscriptionWhereInput
+  >;
 }
 
 export interface UserSubscriptionWhereInput {
@@ -1046,6 +1535,221 @@ export interface AggregateItemSubscription
   count: () => Promise<AsyncIterator<Int>>;
 }
 
+export interface Order {
+  id: ID_Output;
+  total: Int;
+  charge: String;
+}
+
+export interface OrderPromise extends Promise<Order>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  items: <T = FragmentableArray<OrderItem>>(args?: {
+    where?: OrderItemWhereInput;
+    orderBy?: OrderItemOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  total: () => Promise<Int>;
+  user: <T = UserPromise>() => T;
+  charge: () => Promise<String>;
+}
+
+export interface OrderSubscription
+  extends Promise<AsyncIterator<Order>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  items: <T = Promise<AsyncIterator<OrderItemSubscription>>>(args?: {
+    where?: OrderItemWhereInput;
+    orderBy?: OrderItemOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  total: () => Promise<AsyncIterator<Int>>;
+  user: <T = UserSubscription>() => T;
+  charge: () => Promise<AsyncIterator<String>>;
+}
+
+export interface OrderNullablePromise
+  extends Promise<Order | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  items: <T = FragmentableArray<OrderItem>>(args?: {
+    where?: OrderItemWhereInput;
+    orderBy?: OrderItemOrderByInput;
+    skip?: Int;
+    after?: String;
+    before?: String;
+    first?: Int;
+    last?: Int;
+  }) => T;
+  total: () => Promise<Int>;
+  user: <T = UserPromise>() => T;
+  charge: () => Promise<String>;
+}
+
+export interface OrderItem {
+  id: ID_Output;
+  title: String;
+  description: String;
+  image: String;
+  largeImage: String;
+  price: Int;
+  quantity: Int;
+}
+
+export interface OrderItemPromise extends Promise<OrderItem>, Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  description: () => Promise<String>;
+  image: () => Promise<String>;
+  largeImage: () => Promise<String>;
+  price: () => Promise<Int>;
+  quantity: () => Promise<Int>;
+  user: <T = UserPromise>() => T;
+}
+
+export interface OrderItemSubscription
+  extends Promise<AsyncIterator<OrderItem>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  image: () => Promise<AsyncIterator<String>>;
+  largeImage: () => Promise<AsyncIterator<String>>;
+  price: () => Promise<AsyncIterator<Int>>;
+  quantity: () => Promise<AsyncIterator<Int>>;
+  user: <T = UserSubscription>() => T;
+}
+
+export interface OrderItemNullablePromise
+  extends Promise<OrderItem | null>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  description: () => Promise<String>;
+  image: () => Promise<String>;
+  largeImage: () => Promise<String>;
+  price: () => Promise<Int>;
+  quantity: () => Promise<Int>;
+  user: <T = UserPromise>() => T;
+}
+
+export interface OrderConnection {
+  pageInfo: PageInfo;
+  edges: OrderEdge[];
+}
+
+export interface OrderConnectionPromise
+  extends Promise<OrderConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<OrderEdge>>() => T;
+  aggregate: <T = AggregateOrderPromise>() => T;
+}
+
+export interface OrderConnectionSubscription
+  extends Promise<AsyncIterator<OrderConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<OrderEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateOrderSubscription>() => T;
+}
+
+export interface OrderEdge {
+  node: Order;
+  cursor: String;
+}
+
+export interface OrderEdgePromise extends Promise<OrderEdge>, Fragmentable {
+  node: <T = OrderPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface OrderEdgeSubscription
+  extends Promise<AsyncIterator<OrderEdge>>,
+    Fragmentable {
+  node: <T = OrderSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateOrder {
+  count: Int;
+}
+
+export interface AggregateOrderPromise
+  extends Promise<AggregateOrder>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateOrderSubscription
+  extends Promise<AsyncIterator<AggregateOrder>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
+export interface OrderItemConnection {
+  pageInfo: PageInfo;
+  edges: OrderItemEdge[];
+}
+
+export interface OrderItemConnectionPromise
+  extends Promise<OrderItemConnection>,
+    Fragmentable {
+  pageInfo: <T = PageInfoPromise>() => T;
+  edges: <T = FragmentableArray<OrderItemEdge>>() => T;
+  aggregate: <T = AggregateOrderItemPromise>() => T;
+}
+
+export interface OrderItemConnectionSubscription
+  extends Promise<AsyncIterator<OrderItemConnection>>,
+    Fragmentable {
+  pageInfo: <T = PageInfoSubscription>() => T;
+  edges: <T = Promise<AsyncIterator<OrderItemEdgeSubscription>>>() => T;
+  aggregate: <T = AggregateOrderItemSubscription>() => T;
+}
+
+export interface OrderItemEdge {
+  node: OrderItem;
+  cursor: String;
+}
+
+export interface OrderItemEdgePromise
+  extends Promise<OrderItemEdge>,
+    Fragmentable {
+  node: <T = OrderItemPromise>() => T;
+  cursor: () => Promise<String>;
+}
+
+export interface OrderItemEdgeSubscription
+  extends Promise<AsyncIterator<OrderItemEdge>>,
+    Fragmentable {
+  node: <T = OrderItemSubscription>() => T;
+  cursor: () => Promise<AsyncIterator<String>>;
+}
+
+export interface AggregateOrderItem {
+  count: Int;
+}
+
+export interface AggregateOrderItemPromise
+  extends Promise<AggregateOrderItem>,
+    Fragmentable {
+  count: () => Promise<Int>;
+}
+
+export interface AggregateOrderItemSubscription
+  extends Promise<AsyncIterator<AggregateOrderItem>>,
+    Fragmentable {
+  count: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface UserConnection {
   pageInfo: PageInfo;
   edges: UserEdge[];
@@ -1222,6 +1926,112 @@ export interface ItemPreviousValuesSubscription
   updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
+export interface OrderSubscriptionPayload {
+  mutation: MutationType;
+  node: Order;
+  updatedFields: String[];
+  previousValues: OrderPreviousValues;
+}
+
+export interface OrderSubscriptionPayloadPromise
+  extends Promise<OrderSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = OrderPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = OrderPreviousValuesPromise>() => T;
+}
+
+export interface OrderSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<OrderSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = OrderSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = OrderPreviousValuesSubscription>() => T;
+}
+
+export interface OrderPreviousValues {
+  id: ID_Output;
+  total: Int;
+  charge: String;
+}
+
+export interface OrderPreviousValuesPromise
+  extends Promise<OrderPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  total: () => Promise<Int>;
+  charge: () => Promise<String>;
+}
+
+export interface OrderPreviousValuesSubscription
+  extends Promise<AsyncIterator<OrderPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  total: () => Promise<AsyncIterator<Int>>;
+  charge: () => Promise<AsyncIterator<String>>;
+}
+
+export interface OrderItemSubscriptionPayload {
+  mutation: MutationType;
+  node: OrderItem;
+  updatedFields: String[];
+  previousValues: OrderItemPreviousValues;
+}
+
+export interface OrderItemSubscriptionPayloadPromise
+  extends Promise<OrderItemSubscriptionPayload>,
+    Fragmentable {
+  mutation: () => Promise<MutationType>;
+  node: <T = OrderItemPromise>() => T;
+  updatedFields: () => Promise<String[]>;
+  previousValues: <T = OrderItemPreviousValuesPromise>() => T;
+}
+
+export interface OrderItemSubscriptionPayloadSubscription
+  extends Promise<AsyncIterator<OrderItemSubscriptionPayload>>,
+    Fragmentable {
+  mutation: () => Promise<AsyncIterator<MutationType>>;
+  node: <T = OrderItemSubscription>() => T;
+  updatedFields: () => Promise<AsyncIterator<String[]>>;
+  previousValues: <T = OrderItemPreviousValuesSubscription>() => T;
+}
+
+export interface OrderItemPreviousValues {
+  id: ID_Output;
+  title: String;
+  description: String;
+  image: String;
+  largeImage: String;
+  price: Int;
+  quantity: Int;
+}
+
+export interface OrderItemPreviousValuesPromise
+  extends Promise<OrderItemPreviousValues>,
+    Fragmentable {
+  id: () => Promise<ID_Output>;
+  title: () => Promise<String>;
+  description: () => Promise<String>;
+  image: () => Promise<String>;
+  largeImage: () => Promise<String>;
+  price: () => Promise<Int>;
+  quantity: () => Promise<Int>;
+}
+
+export interface OrderItemPreviousValuesSubscription
+  extends Promise<AsyncIterator<OrderItemPreviousValues>>,
+    Fragmentable {
+  id: () => Promise<AsyncIterator<ID_Output>>;
+  title: () => Promise<AsyncIterator<String>>;
+  description: () => Promise<AsyncIterator<String>>;
+  image: () => Promise<AsyncIterator<String>>;
+  largeImage: () => Promise<AsyncIterator<String>>;
+  price: () => Promise<AsyncIterator<Int>>;
+  quantity: () => Promise<AsyncIterator<Int>>;
+}
+
 export interface UserSubscriptionPayload {
   mutation: MutationType;
   node: User;
@@ -1338,6 +2148,14 @@ export const models: Model[] = [
   },
   {
     name: "CartItem",
+    embedded: false
+  },
+  {
+    name: "OrderItem",
+    embedded: false
+  },
+  {
+    name: "Order",
     embedded: false
   }
 ];

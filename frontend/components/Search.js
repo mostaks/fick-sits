@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import Downshift from 'downshift';
+import Downshift, { resetIdCounter } from 'downshift';
 import Router from 'next/router';
 import { useApolloClient } from 'react-apollo-hooks';
 import gql from 'graphql-tag';
@@ -34,8 +34,6 @@ const AutoComplete = () => {
       query: SEARCH_ITEMS_QUERY,
       variables: { searchTerm: val }
     }, 2000)
-    console.log('res', res)
-    console.log('val', val)
     setItems(res.data.items);
     setLoading(false);
   }, 350), []);
@@ -46,20 +44,60 @@ const AutoComplete = () => {
     debounced(e.target.value);
   };
 
+  const routeToItem = (item) => {
+    Router.push({
+      pathname: '/item',
+      query: {
+        id: item.id
+      }
+    })
+  };
+
+  resetIdCounter();
+
   return (
     <SearchStyles>
-      <div>
-        <input type="search" onChange={handleChange}/>
-        <DropDown>
-          <p>Items will go here</p>
-          {items.map(item => (
-            <DropDownItem key={item.id}>
-              <img width="50" src={item.image} alt={item.title}/>
-              {item.title}
-            </DropDownItem>
-          ))}
-        </DropDown>
-      </div>
+      <Downshift
+      onChange={routeToItem}
+        itemToString={item => (item === null ? '' : item.title)}
+      >
+        {({getInputProps, getItemProps, isOpen, inputValue, highlightedIndex}) => (  
+          <div>
+            <input 
+              type="search" 
+              {...getInputProps({
+                type: 'search',
+                placeholder: 'Search for an item',
+                id: 'search',
+                className: loading ? 'loading' : '',
+                onChange: e => {
+                  handleChange(e);
+                }
+              })}
+            />
+            {isOpen && (
+              <DropDown>
+                <p>Items will go here</p>
+                {items.map((item, i) => (
+                  <DropDownItem
+                    {...getItemProps({ item })}
+                    highlighted={i === highlightedIndex}
+                    key={item.id}
+                  >
+                    <img width="50" src={item.image} alt={item.title}/>
+                    {item.title}
+                  </DropDownItem>
+                ))}
+                  { !items.length && !loading  && (
+                  <DropDownItem>
+                    Nothing found for "{inputValue}"
+                  </DropDownItem>
+                )}
+              </DropDown>
+            )}
+          </div>
+        )}
+      </Downshift>
     </SearchStyles>
   );
 }
