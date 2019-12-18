@@ -18,7 +18,7 @@ const Query = {
     )
   },
 
-  async users (parent, args, ctx, info) {
+  async users(parent, args, ctx, info) {
     // check if they are logged in
     if (!ctx.request.userId) {
       throw new Error('You must be logged in')
@@ -27,6 +27,25 @@ const Query = {
     hasPermission(ctx.request.user, ['ADMIN', 'PERMISSIONUPDATE'])
     // if they do, query all the users
     return ctx.db.query.users({}, info)
+  },
+
+  async order(parent, args, ctx, info) {
+    // make sure theya re logged in
+    if (!ctx.request.userId) {
+      throw new Error('You must be logged in')
+    }
+    // query the current order
+    const order = await ctx.db.query.order({
+      where: { id: args.id }
+    }, info);
+    // check if they have the permissions to see this order
+    const ownsOrder = order.user.id === ctx.request.userId;
+    const hasPermissionToSeeOrder = ctx.request.user.permissions.includes('ADMIN');
+    if (!ownsOrder || !hasPermissionToSeeOrder) {
+      throw new Error('You cant see this buddy');
+    }
+    // return the order
+    return order;
   }
 };
 

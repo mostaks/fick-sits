@@ -311,7 +311,11 @@ export type OrderOrderByInput =
   | "total_ASC"
   | "total_DESC"
   | "charge_ASC"
-  | "charge_DESC";
+  | "charge_DESC"
+  | "createdAt_ASC"
+  | "createdAt_DESC"
+  | "updatedAt_ASC"
+  | "updatedAt_DESC";
 
 export type UserOrderByInput =
   | "id_ASC"
@@ -693,6 +697,22 @@ export interface OrderWhereInput {
   charge_not_starts_with?: Maybe<String>;
   charge_ends_with?: Maybe<String>;
   charge_not_ends_with?: Maybe<String>;
+  createdAt?: Maybe<DateTimeInput>;
+  createdAt_not?: Maybe<DateTimeInput>;
+  createdAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  createdAt_lt?: Maybe<DateTimeInput>;
+  createdAt_lte?: Maybe<DateTimeInput>;
+  createdAt_gt?: Maybe<DateTimeInput>;
+  createdAt_gte?: Maybe<DateTimeInput>;
+  updatedAt?: Maybe<DateTimeInput>;
+  updatedAt_not?: Maybe<DateTimeInput>;
+  updatedAt_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_not_in?: Maybe<DateTimeInput[] | DateTimeInput>;
+  updatedAt_lt?: Maybe<DateTimeInput>;
+  updatedAt_lte?: Maybe<DateTimeInput>;
+  updatedAt_gt?: Maybe<DateTimeInput>;
+  updatedAt_gte?: Maybe<DateTimeInput>;
   AND?: Maybe<OrderWhereInput[] | OrderWhereInput>;
   OR?: Maybe<OrderWhereInput[] | OrderWhereInput>;
   NOT?: Maybe<OrderWhereInput[] | OrderWhereInput>;
@@ -1539,6 +1559,8 @@ export interface Order {
   id: ID_Output;
   total: Int;
   charge: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface OrderPromise extends Promise<Order>, Fragmentable {
@@ -1555,6 +1577,8 @@ export interface OrderPromise extends Promise<Order>, Fragmentable {
   total: () => Promise<Int>;
   user: <T = UserPromise>() => T;
   charge: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface OrderSubscription
@@ -1573,6 +1597,8 @@ export interface OrderSubscription
   total: () => Promise<AsyncIterator<Int>>;
   user: <T = UserSubscription>() => T;
   charge: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface OrderNullablePromise
@@ -1591,6 +1617,8 @@ export interface OrderNullablePromise
   total: () => Promise<Int>;
   user: <T = UserPromise>() => T;
   charge: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface OrderItem {
@@ -1955,6 +1983,8 @@ export interface OrderPreviousValues {
   id: ID_Output;
   total: Int;
   charge: String;
+  createdAt: DateTimeOutput;
+  updatedAt: DateTimeOutput;
 }
 
 export interface OrderPreviousValuesPromise
@@ -1963,6 +1993,8 @@ export interface OrderPreviousValuesPromise
   id: () => Promise<ID_Output>;
   total: () => Promise<Int>;
   charge: () => Promise<String>;
+  createdAt: () => Promise<DateTimeOutput>;
+  updatedAt: () => Promise<DateTimeOutput>;
 }
 
 export interface OrderPreviousValuesSubscription
@@ -1971,6 +2003,8 @@ export interface OrderPreviousValuesSubscription
   id: () => Promise<AsyncIterator<ID_Output>>;
   total: () => Promise<AsyncIterator<Int>>;
   charge: () => Promise<AsyncIterator<String>>;
+  createdAt: () => Promise<AsyncIterator<DateTimeOutput>>;
+  updatedAt: () => Promise<AsyncIterator<DateTimeOutput>>;
 }
 
 export interface OrderItemSubscriptionPayload {
