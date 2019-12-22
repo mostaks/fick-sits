@@ -10,10 +10,9 @@ import AddToCart from './AddToCart';
 
 
 const Item = ({ item }) => {
-
   return (
     <ItemStyles>
-      {item.image && <img src={item.image} alt="item.title"></img>}
+      {item.image && <img src={item.image} alt={item.title} />}
       <Title>
         <Link
           href={{
