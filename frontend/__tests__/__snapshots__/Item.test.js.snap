@@ -3,7 +3,7 @@
 exports[`<Item/> renders and matches the snapshot 1`] = `
 <ItemStyles__Item>
   <img
-    alt="item.title"
+    alt="A Cool Item"
     src="dog.jpg"
   />
   <Title>
