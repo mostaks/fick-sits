@@ -1,6 +1,7 @@
-endpoint: ${env:PRISMA_ENDPOINT}
+#endpoint: ${env:PRISMA_ENDPOINT}
+endpoint: https://fick-sits-prod-1c41894933.herokuapp.com/fick-sits-prod/prod
 datamodel: datamodel.prisma
-# secret: ${env:PRISMA_SECRET}
+secret: ${env:PRISMA_SECRET}
 hooks: 
   post-deploy:
     - graphql get-schema -p prisma
