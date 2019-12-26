@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import media from '../../lib/media';
 
 const OrderItemStyles = styled.li`
   box-shadow: ${props => props.theme.bs};
@@ -25,8 +26,9 @@ const OrderItemStyles = styled.li`
   }
   .order-meta {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
-    display: grid;
+    ${media.smUp`
+      grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
+    `}
     grid-gap: 1rem;
     text-align: center;
     & > * {

@@ -1,6 +1,6 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import media from '../lib/media';
 import { TransitionGroup, CSSTransition} from 'react-transition-group';
 
 const AnimationStyles = styled.span`
@@ -32,12 +32,20 @@ const Dot = styled.div`
   color: white;
   border-radius: 50%;
   padding: 0.5rem; 
-  line-height: 2rem;
-  min-width: 3rem;
-  margin-left: 1rem;
+  line-height: 0;
+  min-width: 0;
+  margin-left: 0;
+  margin-right: 1rem;
   font-weight: 100;
   font-feature-settings: 'tnum';
   font-variant-numeric: tabular-nums;
+
+  ${media.smUp`
+    margin-left: 1rem;
+    margin-right: 0;
+    min-width: 3rem;
+    line-height: 2rem;
+  `}
 `;
 
 const CartCount = ({ count }) => {
