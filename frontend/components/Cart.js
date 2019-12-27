@@ -1,7 +1,5 @@
 import React from 'react';
 import { useQuery, useMutation } from 'react-apollo-hooks';
-import { adopt } from 'react-adopt';
-import gql from 'graphql-tag';
 import calcTotalPrice from '../lib/calcTotalPrice';
 import formatMoney from '../lib/formatMoney';
 import User from './User';
@@ -11,18 +9,8 @@ import CloseButton from './styles/CloseButton';
 import SickButton from './styles/SickButton';
 import CartItem from './CartItem';
 import TakeMyMoney from './TakeMyMoney';
-
-const LOCAL_STATE_QUERY = gql`
-  query {
-    cartOpen @client
-  }
-`;
-
-const TOGGLE_CART_MUTATION = gql`
-  mutation {
-    toggleCart @client
-  }
-`;
+import { TOGGLE_CART_MUTATION } from './mutations';
+import { LOCAL_STATE_QUERY } from './queries';
 
 const Cart = () => {
   const { data } = useQuery(LOCAL_STATE_QUERY);
@@ -43,12 +31,12 @@ const Cart = () => {
             {me.cart.map(item => <CartItem key={item.id} cartItem={item} />)}
           </ul>
           <footer>
-          <p>{formatMoney(calcTotalPrice(me.cart))}</p>
-          {me.cart.length && (
-            <TakeMyMoney>
-              <SickButton>Checkout</SickButton>
-            </TakeMyMoney>
-          )}
+            <p>{formatMoney(calcTotalPrice(me.cart))}</p>
+            {me.cart.length && (
+              <TakeMyMoney>
+                <SickButton>Checkout</SickButton>
+              </TakeMyMoney>
+            )}
           </footer>
         </CartStyles>
       );

@@ -1,34 +1,10 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import gql from 'graphql-tag';
 import { useMutation } from 'react-apollo-hooks';
-import Table from './styles/Table';
 import Error from './ErrorMessage';
 import SickButton from './styles/SickButton';
 import { possiblePermissions } from '../data/data';
-
-const propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string,
-    email: PropTypes.string,
-    id: PropTypes.string,
-    permissions: PropTypes.array
-  }).isRequired
-}
-
-const UPDATE_PERMISSIONS_MUTATION = gql`
-  mutation updatePermission(
-    $permissions: [Permission], 
-    $userId: ID!
-  ) {
-    updatePermissions(permissions: $permissions, userId: $userId) {
-      id
-      permissions
-      name
-      email
-    }
-  }
-`;
+import { UPDATE_PERMISSIONS_MUTATION } from './mutations/Mutations';
 
 const UserPermissions = ({ user }) => {
   const [permissions, setPermissions] = useState(user.permissions);
@@ -86,6 +62,13 @@ const UserPermissions = ({ user }) => {
   )
 }
 
-UserPermissions.propTypes = propTypes;
+UserPermissions.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string,
+    email: PropTypes.string,
+    id: PropTypes.string,
+    permissions: PropTypes.array
+  }).isRequired
+};
 
 export default UserPermissions;

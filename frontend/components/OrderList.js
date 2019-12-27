@@ -3,29 +3,10 @@ import { useQuery } from 'react-apollo-hooks';
 import { formatDistance } from 'date-fns';
 import Link from 'next/link';
 import styled from 'styled-components';
-import gql from 'graphql-tag';
 import formatMoney from '../lib/formatMoney';
 import OrderItemStyles from './styles/OrderItemStyles';
 import Error from './ErrorMessage';
-import Order from './Order';
-
-const USER_ORDERS_QUERY = gql`
-  query USER_ORDERS_QUERY {
-    orders(orderBy: createdAt_DESC) {
-      id
-      total
-      createdAt
-      items {
-        id
-        title
-        price
-        description
-        quantity
-        image
-      }
-    }
-  }
-`;
+import {USER_ORDERS_QUERY } from './queries/Queries';
 
 const OrderUlStyled = styled.ul`
   display: grid;

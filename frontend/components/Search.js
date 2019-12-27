@@ -2,25 +2,9 @@ import React, { useState, useCallback } from 'react';
 import Downshift, { resetIdCounter } from 'downshift';
 import Router from 'next/router';
 import { useApolloClient } from 'react-apollo-hooks';
-import gql from 'graphql-tag';
 import debounce from 'lodash.debounce';
 import { DropDown, SearchStyles, DropDownItem } from './styles/DropDown';
-
-const SEARCH_ITEMS_QUERY = gql`
-  query SEARCH_ITEMS_QUERY($searchTerm: String!) {
-    items(where: {
-      OR: [
-        {title_contains: $searchTerm},
-        {description_contains: $searchTerm}
-      ]
-    }) {
-      id
-      image
-      title
-    }
-  }
-`;
-
+import { SEARCH_ITEMS_QUERY } from './queries/Queries';
 
 const AutoComplete = () => {
   const [items, setItems] = useState([]);
@@ -58,13 +42,13 @@ const AutoComplete = () => {
   return (
     <SearchStyles>
       <Downshift
-      onChange={routeToItem}
+        onChange={routeToItem}
         itemToString={item => (item === null ? '' : item.title)}
       >
-        {({getInputProps, getItemProps, isOpen, inputValue, highlightedIndex}) => (  
+        {({ getInputProps, getItemProps, isOpen, inputValue, highlightedIndex }) => (
           <div>
-            <input 
-              type="search" 
+            <input
+              type="search"
               {...getInputProps({
                 type: 'search',
                 placeholder: 'Search for an item',
@@ -84,11 +68,11 @@ const AutoComplete = () => {
                     highlighted={i === highlightedIndex}
                     key={item.id}
                   >
-                    <img width="50" src={item.image} alt={item.title}/>
+                    <img width="50" src={item.image} alt={item.title} />
                     {item.title}
                   </DropDownItem>
                 ))}
-                  { !items.length && !loading  && (
+                {!items.length && !loading && (
                   <DropDownItem>
                     Nothing found for "{inputValue}"
                   </DropDownItem>

@@ -2,20 +2,8 @@ import React from 'react';
 import { useMutation } from 'react-apollo-hooks';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import gql from 'graphql-tag';
-import { CURRENT_USER_QUERY } from './User';
-
-const propTypes = {
-  id: PropTypes.string.isRequired
-}
-
-const REMOVE_FROM_CART_MUTATION = gql`
-  mutation removeFromCart($id: ID!) {
-    removeFromCart(id: $id) {
-      id
-    }
-  }
-`;
+import { CURRENT_USER_QUERY } from './queries';
+import { REMOVE_FROM_CART_MUTATION } from './mutations';
 
 const BigButton = styled.button`
   font-size: 3rem;
@@ -28,7 +16,7 @@ const BigButton = styled.button`
 `;
 
 const RemoveFromCart = ({ id }) => {
-  const [removeFromCart, { loading, error }] = useMutation(REMOVE_FROM_CART_MUTATION, {
+  const [removeFromCart, { loading }] = useMutation(REMOVE_FROM_CART_MUTATION, {
     variables: {
       id
     },
@@ -55,7 +43,7 @@ const RemoveFromCart = ({ id }) => {
   });
 
   return (
-    <BigButton 
+    <BigButton
       title="Delete Item"
       disabled={loading}
       onClick={() => {
@@ -67,6 +55,8 @@ const RemoveFromCart = ({ id }) => {
   );
 }
 
-RemoveFromCart.propTypes = propTypes;
+RemoveFromCart.propTypes = {
+  id: PropTypes.string.isRequired
+};
 
 export default RemoveFromCart;

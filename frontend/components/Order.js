@@ -7,32 +7,7 @@ import gql from 'graphql-tag';
 import formatMoney from '../lib/formatMoney';
 import Error from './ErrorMessage';
 import OrderStyles from './styles/OrderStyles';
-
-const propTypes = {
-  id: PropTypes.string.isRequired
-}
-
-const SINGLE_ORDER_QUERY = gql`
-  query SINGLE_ORDER_QUERY($id: ID!) {
-    order(id: $id) {
-      id
-      charge
-      total
-      createdAt
-      user {
-        id
-      }
-      items {
-        id
-        title
-        description
-        price
-        image
-        quantity
-      }
-    }
-  }
-`;
+import { SINGLE_ORDER_QUERY } from './queries/Queries';
 
 const Order = ({ id }) => {
   const { data, error, loading } = useQuery(SINGLE_ORDER_QUERY, {
@@ -93,6 +68,8 @@ const Order = ({ id }) => {
   );
 }
 
-Order.propTypes = propTypes;
+Order.propTypes = {
+  id: PropTypes.string.isRequired
+};
 
 export default Order;

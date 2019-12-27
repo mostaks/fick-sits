@@ -1,18 +1,8 @@
-import { useState } from "react";
-import { useMutation } from "react-apollo-hooks";
-import gql from "graphql-tag";
-import Form from "./styles/Form";
-import Error from "./ErrorMessage";
-
-const REQUEST_RESET_MUTATION = gql`
-  mutation REQUEST_RESET_MUTATION(
-    $email: String!
-  ) {
-    requestReset(email: $email) {
-      message
-    }
-  }
-`;
+import { useState } from 'react';
+import { useMutation } from 'react-apollo-hooks';
+import Form from './styles/Form';
+import Error from './ErrorMessage';
+import { REQUEST_RESET_MUTATION } from './mutations/Mutations';
 
 const RequestReset = () => {
   const [email, setEmail] = useState("");

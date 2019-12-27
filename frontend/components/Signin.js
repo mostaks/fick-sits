@@ -1,31 +1,19 @@
-import { useState } from "react";
-import { useMutation } from "react-apollo-hooks";
-import gql from "graphql-tag";
-import Form from "./styles/Form";
-import Error from "./ErrorMessage";
-import { CURRENT_USER_QUERY } from './User';
-
-const SIGNIN_MUTATION = gql`
-  mutation SIGNIN_MUTATION(
-    $email: String!
-    $password: String!
-  ) {
-    signin(email: $email, password: $password) {
-      id
-      email
-    }
-  }
-`;
+import { useState } from 'react';
+import { useMutation } from 'react-apollo-hooks';
+import Form from './styles/Form';
+import Error from './ErrorMessage';
+import { CURRENT_USER_QUERY } from './queries/Queries';
+import { SIGNIN_MUTATION } from './mutations/Mutations';
 
 const Signin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [signin, { error, loading }] = useMutation(
-    SIGNIN_MUTATION, 
-    { 
+    SIGNIN_MUTATION,
+    {
       variables: {
-       email,
+        email,
         password
       },
       refetchQueries: [{ query: CURRENT_USER_QUERY }]

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from 'react-apollo-hooks';
-import { CURRENT_USER_QUERY } from './User';
+import { CURRENT_USER_QUERY } from './queries/Queries';
 import Error from './ErrorMessage';
 import ItemStyles from './styles/ItemStyles';
 

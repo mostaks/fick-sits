@@ -1,18 +1,10 @@
 import React from 'react';
 import { useMutation } from 'react-apollo-hooks';
-import gql from 'graphql-tag';
-import { ALL_ITEMS_QUERY } from './Items';
-
-const DELETE_ITEM_MUTATION = gql`
-  mutation DELETE_ITEM_MUTATION($id: ID!) {
-    deleteItem(id: $id) {
-      id
-    }
-  }
-`;
+import { ALL_ITEMS_QUERY } from './queries';
+import { DELETE_ITEM_MUTATION } from './mutations';
 
 const DeleteItem = ({ children, id }) => {
-  const [deleteItem, { error }] = useMutation(DELETE_ITEM_MUTATION, {
+  const [deleteItem] = useMutation(DELETE_ITEM_MUTATION, {
     update (cache, payload) {
       // manually update the cache on the client, so is matches the server
       // 1. read the cache for the items that we want

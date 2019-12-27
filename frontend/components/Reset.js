@@ -1,32 +1,10 @@
-import { useState } from "react";
-import { useMutation } from "react-apollo-hooks";
+import { useState } from 'react';
+import { useMutation } from 'react-apollo-hooks';
 import PropTypes from 'prop-types';
-import gql from "graphql-tag";
-import Form from "./styles/Form";
-import Error from "./ErrorMessage";
-import { CURRENT_USER_QUERY } from './User';
-
-const RESET_MUTATION = gql`
-  mutation RESET_MUTATION(
-    $resetToken: String!,
-    $password: String!,
-    $confirmPassword: String!
-  ) {
-    resetPassword(
-      resetToken: $resetToken, 
-      password: $password, 
-      confirmPassword: $confirmPassword
-    ) {
-      id
-      email
-      name
-    }
-  }
-`;
-
-const propTypes = {
-  resetToken: PropTypes.string.isRequired
-}
+import Form from './styles/Form';
+import Error from './ErrorMessage';
+import { CURRENT_USER_QUERY } from './queries/Queries';
+import { RESET_MUTATION } from './mutations/Mutations';
 
 const Reset = ({ resetToken }) => {
   const [password, setPassword] = useState("");
@@ -88,6 +66,8 @@ const Reset = ({ resetToken }) => {
   );
 };
 
-Reset.propTypes = propTypes;
+Reset.propTypes = {
+  resetToken: PropTypes.string.isRequired
+};
 
 export default Reset;

@@ -3,25 +3,10 @@ import StripeCheckout from 'react-stripe-checkout';
 import { useMutation } from 'react-apollo-hooks';
 import Router from 'next/router';
 import NProgress from 'nprogress';
-import PropTypes from 'prop-types';
-import gql from 'graphql-tag';
 import calcTotalPrice from '../lib/calcTotalPrice';
-import Error from './ErrorMessage';
-import User, { CURRENT_USER_QUERY } from './User';
-
-const CREATE_ORDER_MUTATION = gql`
-  mutation createOrder($token: String!) {
-    createOrder(token: $token) {
-      id
-      charge
-      total
-      items {
-        id
-        title
-      }
-    }
-  }
-`;
+import User from './User';
+import { CURRENT_USER_QUERY } from './queries';
+import { CREATE_ORDER_MUTATION } from './mutations';
 
 const TakeMyMoney = ({ children }) => {
   const [createOrder, { data, error, loading }] = useMutation(CREATE_ORDER_MUTATION, {
@@ -60,7 +45,7 @@ const TakeMyMoney = ({ children }) => {
             email={me.email}
             token={res => onToken(res)}
           >
-            { children }
+            {children}
           </StripeCheckout>
         )}
       </User>

@@ -1,22 +1,11 @@
 import { useQuery } from 'react-apollo-hooks';
-import gql from 'graphql-tag';
 import Error from './ErrorMessage';
 import Table from './styles/Table';
 import UserPermissions from './UserPermissions';
 import { possiblePermissions } from '../data/data';
+import {ALL_USERS_QUERY} from './queries/Queries';
 
-const ALL_USERS_QUERY = gql`
-  query {
-    users {
-      id
-      name
-      email
-      permissions
-    }
-  }
-`;
-
-const Permissions = props => {
+const Permissions = () => {
   const { data, loading, error } = useQuery(ALL_USERS_QUERY);
 
   if (error) {

@@ -1,5 +1,5 @@
 import { useQuery } from 'react-apollo-hooks';
-import { CURRENT_USER_QUERY } from './User';
+import { CURRENT_USER_QUERY } from './queries/Queries';
 import Signin from './Signin';
 
 const PleaseSignin = ({ children }) => {

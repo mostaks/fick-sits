@@ -1,42 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { useQuery, useMutation } from "react-apollo-hooks";
-import gql from "graphql-tag";
-import Router from "next/router";
-import Form from "./styles/Form";
-import formatMoney from "../lib/formatMoney";
-import ErrorMessage from "./ErrorMessage";
-
-const SINGLE_ITEM_QUERY = gql`
-  query SINGLE_ITEM_QUERY($id: ID!) {
-     item(where: { id: $id }) {
-       id
-       title
-       description
-       price
-     }
-  }
-`;
-
-const UPDATE_ITEM_MUTATION = gql`
-  mutation UPDATE_ITEM_MUTATION(
-    $id: ID!
-    $title: String
-    $description: String
-    $price: Int
-  ) {
-    updateItem(
-      id: $id
-      title: $title
-      description: $description
-      price: $price
-    ) {
-      id
-      title
-      description
-      price
-    }
-  }
-`;
+import React, { useState } from 'react';
+import { useQuery, useMutation } from 'react-apollo-hooks';
+import Form from './styles/Form';
+import ErrorMessage from './ErrorMessage';
+import { SINGLE_ITEM_QUERY } from './queries/Queries';
+import { UPDATE_ITEM_MUTATION } from './mutations/Mutations';
 
 const UpdateItem = ({ id }) => {
   const [title, setTitle] = useState("");
@@ -46,7 +13,7 @@ const UpdateItem = ({ id }) => {
   const [updateItem, { loading, error }] = useMutation(UPDATE_ITEM_MUTATION);
   const { data, loading: loadingItem } = useQuery(SINGLE_ITEM_QUERY, {
     variables: {
-      id: id 
+      id: id
     }
   });
 

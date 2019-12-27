@@ -1,33 +1,11 @@
 import React, { useState } from 'react';
 import { useMutation } from 'react-apollo-hooks';
-import gql from 'graphql-tag';
 import Router from 'next/router';
 import Form from './styles/Form';
-import formatMoney from '../lib/formatMoney';
 import ErrorMessage from './ErrorMessage';
-
-const CREATE_ITEM_MUTATION = gql`
-  mutation CREATE_ITEM_MUTATION(
-    $title: String!
-    $description: String!
-    $price: Int!
-    $image: String
-    $largeImage: String
-  ) {
-    createItem(
-      title: $title
-      description: $description
-      price: $price
-      image: $image
-      largeImage: $largeImage
-    ) {
-      id
-    }
-  }
-`;
+import { CREATE_ITEM_MUTATION } from './mutations/Mutations';
 
 const CreateItem = (props) => {
-
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [image, setImage] = useState('');

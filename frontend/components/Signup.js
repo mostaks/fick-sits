@@ -1,19 +1,9 @@
 import { useState } from 'react';
 import { useMutation } from 'react-apollo-hooks';
-import gql from 'graphql-tag';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
-import { CURRENT_USER_QUERY } from './User';
-
-const SIGNUP_MUTATION = gql`
-  mutation SIGNUP_MUTATION($email: String!, $name: String!, $password: String!) {
-    signup(email: $email, name: $name, password: $password) {
-      id
-      email
-      name
-    }
-  }
-`;
+import { CURRENT_USER_QUERY } from './queries/Queries';
+import { SIGNUP_MUTATION } from './mutations/Mutations';
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -21,7 +11,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
 
   const [signup, { error, loading }] = useMutation(
-    SIGNUP_MUTATION, 
+    SIGNUP_MUTATION,
     {
       variables: {
         email,
