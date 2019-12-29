@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import formatMoney from '../lib/formatMoney';
 import OrderItemStyles from './styles/OrderItemStyles';
 import Error from './ErrorMessage';
-import {USER_ORDERS_QUERY } from './queries/Queries';
+import { USER_ORDERS_QUERY } from './queries';
 
 const OrderUlStyled = styled.ul`
   display: grid;
@@ -43,7 +43,7 @@ const OrderList = () => {
             >
               <a>
                 <div className="order-meta">
-                  <p>{order.items.reduce((a,b) => a + b.quantity, 0)}</p>
+                  <p>{order.items.reduce((a, b) => a + b.quantity, 0)}</p>
                   <p>{order.items.length} Products</p>
                   <p>{formatDistance(new Date(order.createdAt), new Date())}</p>
                   <p>{formatMoney(order.total)}</p>

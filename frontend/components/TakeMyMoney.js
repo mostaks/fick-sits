@@ -9,7 +9,7 @@ import { CURRENT_USER_QUERY } from './queries';
 import { CREATE_ORDER_MUTATION } from './mutations';
 
 const TakeMyMoney = ({ children }) => {
-  const [createOrder, { data, error, loading }] = useMutation(CREATE_ORDER_MUTATION, {
+  const [createOrder] = useMutation(CREATE_ORDER_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }]
   });
   const totalItems = (cart) => {

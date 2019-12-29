@@ -3,7 +3,7 @@ import { useQuery } from 'react-apollo-hooks';
 import Error from './ErrorMessage';
 import Head from 'next/head';
 import SingleItemStyles from './styles/SingleItemStyles';
-import { SINGLE_ITEM_QUERY } from './queries/Queries';
+import { SINGLE_ITEM_QUERY } from './queries';
 
 const SingleItem = ({ id }) => {
   const { data, error, loading } = useQuery(SINGLE_ITEM_QUERY, {

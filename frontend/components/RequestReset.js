@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useMutation } from 'react-apollo-hooks';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
-import { REQUEST_RESET_MUTATION } from './mutations/Mutations';
+import { REQUEST_RESET_MUTATION } from './mutations';
 
 const RequestReset = () => {
   const [email, setEmail] = useState("");

@@ -3,8 +3,8 @@ import { useMutation } from 'react-apollo-hooks';
 import PropTypes from 'prop-types';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
-import { CURRENT_USER_QUERY } from './queries/Queries';
-import { RESET_MUTATION } from './mutations/Mutations';
+import { CURRENT_USER_QUERY } from './queries';
+import { RESET_MUTATION } from './mutations';
 
 const Reset = ({ resetToken }) => {
   const [password, setPassword] = useState("");

@@ -3,7 +3,7 @@ import Error from './ErrorMessage';
 import Table from './styles/Table';
 import UserPermissions from './UserPermissions';
 import { possiblePermissions } from '../data/data';
-import {ALL_USERS_QUERY} from './queries/Queries';
+import { ALL_USERS_QUERY } from './queries';
 
 const Permissions = () => {
   const { data, loading, error } = useQuery(ALL_USERS_QUERY);

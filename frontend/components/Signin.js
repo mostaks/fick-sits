@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { useMutation } from 'react-apollo-hooks';
 import Form from './styles/Form';
 import Error from './ErrorMessage';
-import { CURRENT_USER_QUERY } from './queries/Queries';
-import { SIGNIN_MUTATION } from './mutations/Mutations';
+import { CURRENT_USER_QUERY } from './queries';
+import { SIGNIN_MUTATION } from './mutations';
 
 const Signin = () => {
   const [email, setEmail] = useState("");

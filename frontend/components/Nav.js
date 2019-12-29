@@ -4,7 +4,7 @@ import { NavStyles } from './styles/NavStyles';
 import User from './User';
 import Signout from './Signout';
 import CartCount from './CartCount';
-import { TOGGLE_CART_MUTATION } from './mutations/Mutations';
+import { TOGGLE_CART_MUTATION } from './mutations';
 
 const Nav = () => {
   const [toggleCart] = useMutation(TOGGLE_CART_MUTATION);

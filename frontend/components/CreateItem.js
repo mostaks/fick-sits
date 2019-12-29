@@ -3,7 +3,7 @@ import { useMutation } from 'react-apollo-hooks';
 import Router from 'next/router';
 import Form from './styles/Form';
 import ErrorMessage from './ErrorMessage';
-import { CREATE_ITEM_MUTATION } from './mutations/Mutations';
+import { CREATE_ITEM_MUTATION } from './mutations';
 
 const CreateItem = (props) => {
   const [title, setTitle] = useState('');

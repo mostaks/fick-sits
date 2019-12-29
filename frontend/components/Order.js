@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import { useQuery } from 'react-apollo-hooks';
 import { format, parseISO } from 'date-fns';
 import Head from 'next/head';
-import gql from 'graphql-tag';
 import formatMoney from '../lib/formatMoney';
 import Error from './ErrorMessage';
 import OrderStyles from './styles/OrderStyles';
-import { SINGLE_ORDER_QUERY } from './queries/Queries';
+import { SINGLE_ORDER_QUERY } from './queries';
 
 const Order = ({ id }) => {
   const { data, error, loading } = useQuery(SINGLE_ORDER_QUERY, {

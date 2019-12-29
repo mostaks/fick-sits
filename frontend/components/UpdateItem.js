@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useQuery, useMutation } from 'react-apollo-hooks';
 import Form from './styles/Form';
 import ErrorMessage from './ErrorMessage';
-import { SINGLE_ITEM_QUERY } from './queries/Queries';
-import { UPDATE_ITEM_MUTATION } from './mutations/Mutations';
+import { SINGLE_ITEM_QUERY } from './queries';
+import { UPDATE_ITEM_MUTATION } from './mutations';
 
 const UpdateItem = ({ id }) => {
   const [title, setTitle] = useState("");

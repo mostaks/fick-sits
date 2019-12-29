@@ -4,7 +4,7 @@ import { useMutation } from 'react-apollo-hooks';
 import Error from './ErrorMessage';
 import SickButton from './styles/SickButton';
 import { possiblePermissions } from '../data/data';
-import { UPDATE_PERMISSIONS_MUTATION } from './mutations/Mutations';
+import { UPDATE_PERMISSIONS_MUTATION } from './mutations';
 
 const UserPermissions = ({ user }) => {
   const [permissions, setPermissions] = useState(user.permissions);

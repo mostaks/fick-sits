@@ -4,7 +4,7 @@ import Router from 'next/router';
 import { useApolloClient } from 'react-apollo-hooks';
 import debounce from 'lodash.debounce';
 import { DropDown, SearchStyles, DropDownItem } from './styles/DropDown';
-import { SEARCH_ITEMS_QUERY } from './queries/Queries';
+import { SEARCH_ITEMS_QUERY } from './queries';
 
 const AutoComplete = () => {
   const [items, setItems] = useState([]);
