@@ -38,7 +38,7 @@
     "react-transition-group": "^2.5.0",
     "styled-components": "^4.4.1",
     "waait": "^1.0.2",
-    "yarn": "^1.19.1"
+    "yarn": "^1.22.0"
   },
   "devDependencies": {
     "babel-jest": "^23.6.0",
